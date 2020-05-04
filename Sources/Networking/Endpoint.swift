@@ -4,13 +4,14 @@
 
 import Foundation
 
-typealias HTTPHeaders = [String: String]
-typealias Parameter = [String: Any]
+public typealias HTTPHeaders = [String: String]
+public typealias Parameter = [String: Any]
 
-protocol Endpoint {
+public protocol Endpoint {
     var scheme: String { get }
-    var path: String? { get }
     var host: String { get }
+    var port: Int? { get }
+    var path: String? { get }
     var httpMethod: HTTPMethod { get }
     var data: RequestData { get }
     var headers: HTTPHeaders? { get }

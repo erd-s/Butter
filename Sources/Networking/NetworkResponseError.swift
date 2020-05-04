@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum NetworkResponseError: Error {
+public enum NetworkResponseError: Error {
     case badRequest
     case notAuthorized
     case forbidden

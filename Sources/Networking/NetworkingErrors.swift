@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum NetworkingRequestError: Error {
+public enum NetworkingRequestError: Error {
     case couldNotConstructURLFromHost(host: String)
     case couldNotConstructURLComponents(url: URL?)
 }

@@ -4,9 +4,8 @@
 
 import Foundation
 
-enum RequestData {
+public enum RequestData {
+    case none
     case params(params: [String: String])
     case body(body: Encodable)
 }
-
-

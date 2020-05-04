@@ -6,14 +6,24 @@ import Foundation
 
 typealias NetworkCompletion = (Result<Data?, Error>) -> ()
 
+// MARK - Injection Point for URLSession
+protocol URLSessionDataTaskInterface {
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
+}
+
+extension URLSession: URLSessionDataTaskInterface { }
+
 // MARK - Main Router Interface
 class Router {
-    private var task: URLSessionTask?
+    private var task: URLSessionDataTask?
     
-    func makeRequest(endpoint: Endpoint, completion: @escaping NetworkCompletion) {
-        let session = URLSession.shared
+    public func makeRequest(session: URLSessionDataTaskInterface = URLSession.shared,
+                            endpoint: Endpoint,
+                            completion: @escaping NetworkCompletion) {
+        
         do {
-            let request = try buildRequest(from: endpoint)
+            let requestBuilder = URLRequestBuilder()
+            let request = try requestBuilder.request(from: endpoint)
             task = session.dataTask(with: request) { data, response, error in
                 self.handleDataTaskResponse(data: data,
                                             response: response,
@@ -23,68 +33,6 @@ class Router {
             task?.resume()
         } catch {
             completion(.failure(error))
-        }
-    }
-    
-    func cancel() {
-        task?.cancel()
-    }
-}
-
-private extension Encodable {
-    func json() throws -> Data {
-        let encoder = JSONEncoder()
-        return try encoder.encode(self)
-    }
-}
-
-// MARK - Private Helper Methods
-private extension Router {
-    func buildRequest(from endpoint: Endpoint) throws -> URLRequest {
-        let url = try makeBaseURLWithPath(host: endpoint.host, path: endpoint.path)
-        var request = URLRequest(url: url)
-        try setData(request: &request, data: endpoint.data)
-        if let headers = endpoint.headers {
-            setHeaders(&request, headers: headers)
-        }
-        return request
-    }
-    
-    func makeBaseURLWithPath(host: String, path: String?) throws -> URL {
-        guard var url = URL(string: host) else {
-            throw NetworkingRequestError.couldNotConstructURLFromHost(host: host)
-        }
-        
-        if let path = path {
-            url.appendPathComponent(path)
-        }
-        
-        return url
-    }
-    
-    func setData(request: inout URLRequest, data: RequestData) throws {
-        guard
-            let url = request.url,
-            var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-            else {
-                throw NetworkingRequestError.couldNotConstructURLComponents(url: request.url)
-        }
-        
-        switch data {
-        case .body(let body):
-            request.httpBody = try body.json()
-        case .params(let params):
-            components.queryItems = params.compactMap {
-                URLQueryItem(name: $0.key, value: $0.value)
-            }
-        }
-        
-        request.url = components.url
-    }
-    
-    func setHeaders(_ request: inout URLRequest, headers: HTTPHeaders) {
-        headers.forEach {
-            request.setValue($0.value, forHTTPHeaderField: $0.key)
         }
     }
     
@@ -103,5 +51,9 @@ private extension Router {
         } else {
             completion(.success(data))
         }
+    }
+    
+    public func cancel() {
+        task?.cancel()
     }
 }
