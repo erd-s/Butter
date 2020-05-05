@@ -17,6 +17,8 @@ extension URLSession: URLSessionDataTaskInterface { }
 public class Router {
     private var task: URLSessionDataTask?
     
+    public init() { }
+    
     public func makeRequest(sessionInterface: URLSessionDataTaskInterface? = nil,
                             endpoint: Endpoint,
                             completion: @escaping NetworkCompletion) {
