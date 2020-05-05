@@ -3,7 +3,7 @@
 //
 
 import Foundation
-@testable import Networking
+import Butter
 
 struct MockEndpoint_NoData: Endpoint {
     var scheme: String { "http" }

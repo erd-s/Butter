@@ -4,7 +4,7 @@
 
 import Foundation
 import XCTest
-@testable import Networking
+@testable import Butter
 
 class NetworkResponseErrorTests: XCTestCase {
     func testInit_Failure() {
