@@ -1,5 +1,5 @@
 import XCTest
-@testable import Networking
+@testable import Butter
 
 final class URLBuilderTests: XCTestCase {
     func testMakeRequest_success() {

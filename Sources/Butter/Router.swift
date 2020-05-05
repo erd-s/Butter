@@ -4,10 +4,10 @@
 
 import Foundation
 
-typealias NetworkCompletion = (Result<Data?, Error>) -> ()
+public typealias NetworkCompletion = (Result<Data?, Error>) -> ()
 
 // MARK - Injection Point for URLSession
-protocol URLSessionDataTaskInterface {
+public protocol URLSessionDataTaskInterface {
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
 }
 
@@ -17,10 +17,10 @@ extension URLSession: URLSessionDataTaskInterface { }
 class Router {
     private var task: URLSessionDataTask?
     
-    public func makeRequest(session: URLSessionDataTaskInterface = URLSession.shared,
+    public func makeRequest(sessionInterface: URLSessionDataTaskInterface? = nil,
                             endpoint: Endpoint,
                             completion: @escaping NetworkCompletion) {
-        
+        let session = sessionInterface ?? URLSession.shared
         do {
             let requestBuilder = URLRequestBuilder()
             let request = try requestBuilder.request(from: endpoint)
@@ -36,10 +36,10 @@ class Router {
         }
     }
     
-    func handleDataTaskResponse(data: Data?,
-                                response: URLResponse?,
-                                error: Error?,
-                                completion: NetworkCompletion) {
+    private func handleDataTaskResponse(data: Data?,
+                                        response: URLResponse?,
+                                        error: Error?,
+                                        completion: NetworkCompletion) {
         if let error = error {
             completion(.failure(error))
             return

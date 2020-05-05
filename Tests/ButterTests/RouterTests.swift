@@ -1,5 +1,5 @@
 import XCTest
-@testable import Networking
+@testable import Butter
 
 final class RouterTests: XCTestCase {
     func testMakeRequest_success() {
@@ -11,7 +11,7 @@ final class RouterTests: XCTestCase {
         // when
         var data: Data?
         let expectation = XCTestExpectation(description: "successful completion")
-        router.makeRequest(session: session, endpoint: endpoint) { result in
+        router.makeRequest(sessionInterface: session, endpoint: endpoint) { result in
             if case .success(let resultData) = result {
                 data = resultData
             }
@@ -32,7 +32,7 @@ final class RouterTests: XCTestCase {
         // when
         var requestError: Error?
         let expectation = XCTestExpectation(description: "completion with error")
-        router.makeRequest(session: session, endpoint: endpoint) { result in
+        router.makeRequest(sessionInterface: session, endpoint: endpoint) { result in
             if case .failure(let error) = result {
                 requestError = error
             }
@@ -52,7 +52,7 @@ final class RouterTests: XCTestCase {
         // when
         var requestError: Error?
         let expectation = XCTestExpectation(description: "completion with error")
-        router.makeRequest(session: session, endpoint: endpoint) { result in
+        router.makeRequest(sessionInterface: session, endpoint: endpoint) { result in
             if case .failure(let error) = result {
                 requestError = error
             }
@@ -72,7 +72,7 @@ final class RouterTests: XCTestCase {
         // when
         var requestError: Error?
         let expectation = XCTestExpectation(description: "completion with error")
-        router.makeRequest(session: session, endpoint: endpoint) { result in
+        router.makeRequest(sessionInterface: session, endpoint: endpoint) { result in
             if case .failure(let error) = result {
                 requestError = error
             }
@@ -93,7 +93,7 @@ final class RouterTests: XCTestCase {
         // when
         var errorCode: Int?
         let exp = XCTestExpectation(description: "finish with cancelation")
-        router.makeRequest(session: session, endpoint: endpoint) { result in
+        router.makeRequest(sessionInterface: session, endpoint: endpoint) { result in
             if case .failure(let error as NSError) = result {
                 errorCode = error.code
             }

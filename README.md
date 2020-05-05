@@ -1,3 +1,3 @@
-# Networking
+# Butter
 
-A description of this package.
+A lightweight networking library.
