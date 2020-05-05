@@ -14,7 +14,7 @@ public protocol URLSessionDataTaskInterface {
 extension URLSession: URLSessionDataTaskInterface { }
 
 // MARK - Main Router Interface
-class Router {
+public class Router {
     private var task: URLSessionDataTask?
     
     public func makeRequest(sessionInterface: URLSessionDataTaskInterface? = nil,
