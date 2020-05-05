@@ -27,7 +27,7 @@ public struct URLRequestBuilder {
         return request
     }
     
-    func makeURL(scheme: String, host: String, port: Int?, path: String?) throws -> URL {
+    private func makeURL(scheme: String, host: String, port: Int?, path: String?) throws -> URL {
         var baseURLString = scheme + "://" + host
         
         if let port = port {
@@ -45,12 +45,12 @@ public struct URLRequestBuilder {
         return url
     }
     
-    func setData(request: inout URLRequest, data: RequestData) throws {
+    private func setData(request: inout URLRequest, data: RequestData) throws {
         guard
             let url = request.url,
             var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         else {
-            assertionFailure("Malformed URL, this case should be possible.")
+            // Have not been able to replicate this case.
             throw NetworkingRequestError.couldNotConstructURLComponents(url: request.url)
         }
         
@@ -58,11 +58,7 @@ public struct URLRequestBuilder {
         case .body(let body):
             request.httpBody = try body.json()
         case .params(let params):
-            components.queryItems = params.compactMap { param in
-                let encodedName = param.key.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                let encodedValue = param.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                return URLQueryItem(name: encodedName, value: encodedValue)
-            }
+            components.queryItems = queryItems(from: params)
         case .none:
             break
         }
@@ -70,7 +66,19 @@ public struct URLRequestBuilder {
         request.url = components.url
     }
     
-    func setHeaders(_ request: inout URLRequest, headers: HTTPHeaders) {
+    private func queryItems(from dict: [String: String]) -> [URLQueryItem] {
+        return dict.compactMap { param in
+            guard
+                !param.key.isEmpty,
+                let encodedName = param.key.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+                return nil
+            }
+            let encodedValue = param.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            return URLQueryItem(name: encodedName, value: encodedValue)
+        }
+    }
+    
+    private func setHeaders(_ request: inout URLRequest, headers: HTTPHeaders) {
         headers.forEach {
             request.setValue($0.value, forHTTPHeaderField: $0.key)
         }

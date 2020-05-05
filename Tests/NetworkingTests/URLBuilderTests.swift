@@ -73,4 +73,18 @@ final class URLBuilderTests: XCTestCase {
         // then
         XCTAssertNil(requestError)
     }
+    
+    func testSetData_sucess_withEmptyParams() {
+        // given
+        let builder = URLRequestBuilder()
+        let endpoint = MockEndpoint_WithEmptyParamNameData()
+        
+        // when
+        var query: String?
+        let request = try? builder.request(from: endpoint)
+        query = request?.url?.query
+        
+        // then
+        XCTAssertTrue(query!.isEmpty, "empty params should yield and empty query")
+    }
 }
