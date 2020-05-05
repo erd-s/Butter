@@ -2,11 +2,11 @@ import XCTest
 @testable import Networking
 
 final class RouterTests: XCTestCase {
-    func testMakeRequestSuccess() {
+    func testMakeRequest_success() {
         // given
         let session = MockURLSession_Success()
         let router = Router()
-        let endpoint = MockEndpointSuccess()
+        let endpoint = MockEndpoint_NoData()
         
         // when
         var data: Data?
@@ -23,11 +23,11 @@ final class RouterTests: XCTestCase {
         XCTAssertNotNil(data)
     }
     
-    func testMakeRequestFailure_status400() {
+    func testMakeRequest_failure_status400() {
         // given
         let session = MockURLSession_Failure_400Code()
         let router = Router()
-        let endpoint = MockEndpointSuccess()
+        let endpoint = MockEndpoint_NoData()
         
         // when
         var requestError: Error?
@@ -44,10 +44,10 @@ final class RouterTests: XCTestCase {
         XCTAssertNotNil(requestError)
     }
     
-    func testMakeRequestFailure_networkFailure() {
+    func testMakeRequest_failure_networkFailure() {
         let session = MockURLSession_Failure_NetworkError()
         let router = Router()
-        let endpoint = MockEndpointSuccess()
+        let endpoint = MockEndpoint_NoData()
         
         // when
         var requestError: Error?
@@ -64,10 +64,10 @@ final class RouterTests: XCTestCase {
         XCTAssertNotNil(requestError)
     }
     
-    func testMakeRequestFailure_invalidEndpoint() {
+    func testMakeRequest_failure_invalidEndpoint() {
         let session = MockURLSession_Success()
         let router = Router()
-        let endpoint = MockEndpointBadHost()
+        let endpoint = MockEndpoint_BadHost()
         
         // when
         var requestError: Error?
@@ -88,7 +88,7 @@ final class RouterTests: XCTestCase {
         // given
         let session = URLSession.shared
         let router = Router()
-        let endpoint = MockEndpointSuccess()
+        let endpoint = MockEndpoint_NoData()
         
         // when
         var errorCode: Int?

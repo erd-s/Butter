@@ -50,6 +50,7 @@ public struct URLRequestBuilder {
             let url = request.url,
             var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         else {
+            assertionFailure("Malformed URL, this case should be possible.")
             throw NetworkingRequestError.couldNotConstructURLComponents(url: request.url)
         }
         
@@ -57,8 +58,10 @@ public struct URLRequestBuilder {
         case .body(let body):
             request.httpBody = try body.json()
         case .params(let params):
-            components.queryItems = params.compactMap {
-                URLQueryItem(name: $0.key, value: $0.value)
+            components.queryItems = params.compactMap { param in
+                let encodedName = param.key.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                let encodedValue = param.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                return URLQueryItem(name: encodedName, value: encodedValue)
             }
         case .none:
             break

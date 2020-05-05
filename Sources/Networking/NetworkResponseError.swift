@@ -4,12 +4,11 @@
 
 import Foundation
 
-public enum NetworkResponseError: Error {
+public enum NetworkResponseError: Error, Equatable {
     case badRequest
     case notAuthorized
     case forbidden
     case notFound
-    case methodNotAllowed
     case internalServerError
     case badGateway
     case unknown(statusCode: Int)

@@ -40,7 +40,7 @@ class MockURLSession_Failure_NetworkError: URLSessionDataTaskInterface {
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let data: Data? = nil
         let urlResponse: URLResponse? = nil
-        let error: Error? = NetworkResponseError.methodNotAllowed
+        let error: Error? = NetworkResponseError.notFound
         
         completionHandler(data, urlResponse, error)
         return URLSessionDataTask()
