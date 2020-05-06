@@ -31,9 +31,9 @@ class ViewController: UIViewController {
     }
     
     func setOutputTextViewText(jsonData: Data?) {
-        guard
-            let data = jsonData
-        else {
+        outputTextView.textColor = .black
+        
+        guard let data = jsonData else {
             outputTextView.text = "No data"
             return
         }
@@ -42,12 +42,30 @@ class ViewController: UIViewController {
             outputTextView.text = "Data is not json parseable"
             return
         }
+    
+        let mappedJson: [String] = json.compactMap { entry in
+            var string = "\(entry.key): "
+            if let arrayValue = entry.value as? NSArray {
+                string.append(arrayValue.description(withLocale: nil, indent: 1))
+            } else {
+                string.append("\(entry.value)")
+            }
+            return string
+        }
         
-        outputTextView.text = "\(json)"
+        outputTextView.text = mappedJson.joined(separator: "\n")
     }
     
     func setOutputTextViewText(error: Error) {
-        outputTextView.text = error.localizedDescription
+        outputTextView.textColor = .red
+        outputTextView.text =
+        """
+        An error occurred.
+        
+        Please check that your local server is running, see ButterLocalServer/README.md for instructions.
+        
+        \(error.localizedDescription)
+        """
     }
     
     @IBAction func makeRequestA(sender: UIButton) {
@@ -65,4 +83,3 @@ class ViewController: UIViewController {
         makeRequest(at: endpoint)
     }
 }
-

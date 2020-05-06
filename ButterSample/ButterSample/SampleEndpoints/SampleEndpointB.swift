@@ -12,7 +12,7 @@ struct SampleEndpointB: Endpoint {
     
     var port: Int? { 8070 }
     
-    var path: String? { "/test/\(self.self)" }
+    var path: String? { "/test/b" }
     
     var httpMethod: HTTPMethod { .get }
     
