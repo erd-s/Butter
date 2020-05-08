@@ -4,12 +4,12 @@
 
 ```
 Python 3.8 runtime
-pip
+pip3
 ```
 
 ##### Install required packages:
 
-`pip install -r requirements.txt`
+`pip3 install -r requirements.txt`
 
 ##### Start the server:
 

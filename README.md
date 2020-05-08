@@ -4,6 +4,10 @@
 
 A lightweight networking library.
 
+# Requirements
+- Swift 5.2.0
+- Xcode 11.4
+
 # Running the Sample
 
 To run the sample change to the ButterSample directory and open ButterSample.xcodeproj.
