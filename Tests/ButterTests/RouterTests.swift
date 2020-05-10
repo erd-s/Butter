@@ -9,9 +9,9 @@ final class RouterTests: XCTestCase {
         let endpoint = MockEndpoint_NoData()
         
         // when
-        var data: Data?
+        var data: MockResponse?
         let expectation = XCTestExpectation(description: "successful completion")
-        router.makeRequest(endpoint: endpoint) { result in
+		router.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
             if case .success(let resultData) = result {
                 data = resultData
             }
@@ -32,7 +32,8 @@ final class RouterTests: XCTestCase {
         // when
         var requestError: Error?
         let expectation = XCTestExpectation(description: "completion with error")
-        router.makeRequest(endpoint: endpoint) { result in
+	
+        router.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
             if case .failure(let error) = result {
                 requestError = error
             }
@@ -52,7 +53,7 @@ final class RouterTests: XCTestCase {
         // when
         var requestError: Error?
         let expectation = XCTestExpectation(description: "completion with error")
-        router.makeRequest(endpoint: endpoint) { result in
+        router.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
             if case .failure(let error) = result {
                 requestError = error
             }
@@ -72,7 +73,7 @@ final class RouterTests: XCTestCase {
         // when
         var requestError: Error?
         let expectation = XCTestExpectation(description: "completion with error")
-        router.makeRequest(endpoint: endpoint) { result in
+        router.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
             if case .failure(let error) = result {
                 requestError = error
             }
@@ -93,7 +94,7 @@ final class RouterTests: XCTestCase {
         // when
         var errorCode: Int?
         let exp = XCTestExpectation(description: "finish with cancelation")
-        router.makeRequest(endpoint: endpoint) { result in
+        router.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
             if case .failure(let error as NSError) = result {
                 errorCode = error.code
             }
@@ -105,5 +106,17 @@ final class RouterTests: XCTestCase {
         wait(for: [exp], timeout: 0.5)
         XCTAssertEqual(errorCode, -999)
     }
+	
+	func testSetDecodingStrategy() {
+		// given
+		let strat: JSONDecoder.DateDecodingStrategy = .secondsSince1970
+		let router = Router()
+		
+		// when
+		router.setDecodingStrategy(strat)
+		
+		// then
+		XCTAssertNotNil(router.dateDecodingStrategy)
+	}
 }
 

@@ -68,13 +68,11 @@ public struct URLRequestBuilder {
     
     private func queryItems(from dict: [String: String]) -> [URLQueryItem] {
         return dict.compactMap { param in
-            guard
-                !param.key.isEmpty,
-                let encodedName = param.key.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            guard !param.key.isEmpty else {
                 return nil
             }
-            let encodedValue = param.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            return URLQueryItem(name: encodedName, value: encodedValue)
+
+            return URLQueryItem(name: param.key, value: param.value)
         }
     }
     

@@ -4,6 +4,11 @@
 
 import Foundation
 
+public enum NetworkingRequestError: Error {
+    case couldNotConstructURLFromHost(host: String)
+    case couldNotConstructURLComponents(url: URL?)
+}
+
 public enum NetworkResponseError: Error, Equatable {
     case badRequest
     case notAuthorized
@@ -36,4 +41,8 @@ public enum NetworkResponseError: Error, Equatable {
             self = .unknown(statusCode: statusCode)
         }
     }
+}
+
+public enum ButterError: Error {
+	case unknown(debugInfo: String)
 }

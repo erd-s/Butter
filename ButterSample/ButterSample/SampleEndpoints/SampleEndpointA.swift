@@ -12,11 +12,23 @@ struct SampleEndpointA: Endpoint {
     
     var port: Int? { 8070 }
     
-    var path: String? { "/test/a" }
+    var path: String? { "movies" }
     
     var httpMethod: HTTPMethod { .get }
     
-    var data: RequestData { .none }
+	var data: RequestData { .params(params: ["name": "vin disel"]) }
     
-    var headers: HTTPHeaders? { ["X-Some-Header": "Some-Header-Argument"] }
+    var headers: HTTPHeaders? { ["ContentType": "application/json"] }
+}
+
+struct SampleResponseA: Decodable, CustomStringConvertible {
+	let movieList: [String]
+	
+	var description: String {
+		return movieList.joined(separator: "\n")
+	}
+	
+	enum CodingKeys: String, CodingKey {
+		case movieList = "movie_list"
+	}
 }
