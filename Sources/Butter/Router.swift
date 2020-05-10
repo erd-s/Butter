@@ -16,13 +16,14 @@ extension URLSession: URLSessionDataTaskInterface { }
 // MARK - Main Router Interface
 public class Router {
     private var task: URLSessionDataTask?
+    private var session: URLSessionDataTaskInterface
     
-    public init() { }
+    public init(session: URLSessionDataTaskInterface = URLSession.shared) {
+        self.session = session
+    }
     
-    public func makeRequest(sessionInterface: URLSessionDataTaskInterface? = nil,
-                            endpoint: Endpoint,
+    public func makeRequest(endpoint: Endpoint,
                             completion: @escaping NetworkCompletion) {
-        let session = sessionInterface ?? URLSession.shared
         do {
             let requestBuilder = URLRequestBuilder()
             let request = try requestBuilder.request(from: endpoint)

@@ -5,13 +5,13 @@ final class RouterTests: XCTestCase {
     func testMakeRequest_success() {
         // given
         let session = MockURLSession_Success()
-        let router = Router()
+        let router = Router(session: session)
         let endpoint = MockEndpoint_NoData()
         
         // when
         var data: Data?
         let expectation = XCTestExpectation(description: "successful completion")
-        router.makeRequest(sessionInterface: session, endpoint: endpoint) { result in
+        router.makeRequest(endpoint: endpoint) { result in
             if case .success(let resultData) = result {
                 data = resultData
             }
@@ -26,13 +26,13 @@ final class RouterTests: XCTestCase {
     func testMakeRequest_failure_status400() {
         // given
         let session = MockURLSession_Failure_400Code()
-        let router = Router()
+        let router = Router(session: session)
         let endpoint = MockEndpoint_NoData()
         
         // when
         var requestError: Error?
         let expectation = XCTestExpectation(description: "completion with error")
-        router.makeRequest(sessionInterface: session, endpoint: endpoint) { result in
+        router.makeRequest(endpoint: endpoint) { result in
             if case .failure(let error) = result {
                 requestError = error
             }
@@ -46,13 +46,13 @@ final class RouterTests: XCTestCase {
     
     func testMakeRequest_failure_networkFailure() {
         let session = MockURLSession_Failure_NetworkError()
-        let router = Router()
+        let router = Router(session: session)
         let endpoint = MockEndpoint_NoData()
         
         // when
         var requestError: Error?
         let expectation = XCTestExpectation(description: "completion with error")
-        router.makeRequest(sessionInterface: session, endpoint: endpoint) { result in
+        router.makeRequest(endpoint: endpoint) { result in
             if case .failure(let error) = result {
                 requestError = error
             }
@@ -66,13 +66,13 @@ final class RouterTests: XCTestCase {
     
     func testMakeRequest_failure_invalidEndpoint() {
         let session = MockURLSession_Success()
-        let router = Router()
+        let router = Router(session: session)
         let endpoint = MockEndpoint_BadHost()
         
         // when
         var requestError: Error?
         let expectation = XCTestExpectation(description: "completion with error")
-        router.makeRequest(sessionInterface: session, endpoint: endpoint) { result in
+        router.makeRequest(endpoint: endpoint) { result in
             if case .failure(let error) = result {
                 requestError = error
             }
@@ -87,13 +87,13 @@ final class RouterTests: XCTestCase {
     func testTaskCancellation() {
         // given
         let session = URLSession.shared
-        let router = Router()
+        let router = Router(session: session)
         let endpoint = MockEndpoint_NoData()
         
         // when
         var errorCode: Int?
         let exp = XCTestExpectation(description: "finish with cancelation")
-        router.makeRequest(sessionInterface: session, endpoint: endpoint) { result in
+        router.makeRequest(endpoint: endpoint) { result in
             if case .failure(let error as NSError) = result {
                 errorCode = error.code
             }
