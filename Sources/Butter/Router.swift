@@ -17,24 +17,21 @@ extension URLSession: URLSessionDataTaskInterface { }
 public class Router {
     private var task: URLSessionDataTask?
     private var session: URLSessionDataTaskInterface
-	private (set) var dateDecodingStrategy: JSONDecoder.DateDecodingStrategy?
     
     public init(session: URLSessionDataTaskInterface = URLSession.shared) {
         self.session = session
     }
-	
-	public func setDecodingStrategy(_ strat: JSONDecoder.DateDecodingStrategy) {
-		self.dateDecodingStrategy = strat
-	}
     
 	public func makeRequest<T: Decodable>(responseType: T.Type,
 										  endpoint: Endpoint,
+										  decoder: JSONDecoder = JSONDecoder(),
                                           completion: @escaping NetworkCompletion<T>) {
         do {
             let requestBuilder = URLRequestBuilder()
             let request = try requestBuilder.request(from: endpoint)
             task = session.dataTask(with: request) { data, response, error in
-                self.handleDataTaskResponse(data: data,
+				self.handleDataTaskResponse(using: decoder,
+											data: data,
                                             response: response,
                                             error: error,
                                             completion: completion)
@@ -45,7 +42,8 @@ public class Router {
         }
     }
     
-    private func handleDataTaskResponse<T: Decodable>(data: Data?,
+	private func handleDataTaskResponse<T: Decodable>(using decoder: JSONDecoder,
+													  data: Data?,
                                                       response: URLResponse?,
                                                       error: Error?,
                                                       completion: NetworkCompletion<T>) {
@@ -59,10 +57,6 @@ public class Router {
             completion(.failure(error))
 		} else if let data = data {
 			do {
-				let decoder = JSONDecoder()
-				if let strat = self.dateDecodingStrategy {
-					decoder.dateDecodingStrategy = strat
-				}
 				let ret = try decoder.decode(T.self, from: data)
 				completion(.success(ret))
 			} catch {

@@ -17,8 +17,9 @@ class ViewController: UIViewController {
 	func makeRequest<T: Decodable>(responseType: T.Type, at endpoint: Endpoint) {
         let router = Router()
         spinner.startAnimating()
-		router.setDecodingStrategy(.secondsSince1970)
-		router.makeRequest(responseType: responseType, endpoint: endpoint) { result in
+		let decoder = JSONDecoder()
+		decoder.dateDecodingStrategy = .secondsSince1970
+		router.makeRequest(responseType: responseType, endpoint: endpoint, decoder: decoder) { result in
             DispatchQueue.main.async {
                 self.spinner.stopAnimating()
                 switch result {

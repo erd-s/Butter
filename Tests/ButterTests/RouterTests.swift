@@ -106,17 +106,5 @@ final class RouterTests: XCTestCase {
         wait(for: [exp], timeout: 0.5)
         XCTAssertEqual(errorCode, -999)
     }
-	
-	func testSetDecodingStrategy() {
-		// given
-		let strat: JSONDecoder.DateDecodingStrategy = .secondsSince1970
-		let router = Router()
-		
-		// when
-		router.setDecodingStrategy(strat)
-		
-		// then
-		XCTAssertNotNil(router.dateDecodingStrategy)
-	}
 }
 
