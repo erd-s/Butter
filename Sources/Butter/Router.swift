@@ -24,13 +24,12 @@ public class Router {
     
 	public func makeRequest<T: Decodable>(responseType: T.Type,
 										  endpoint: Endpoint,
-										  decoder: JSONDecoder = JSONDecoder(),
                                           completion: @escaping NetworkCompletion<T>) {
         do {
             let requestBuilder = URLRequestBuilder()
             let request = try requestBuilder.request(from: endpoint)
             task = session.dataTask(with: request) { data, response, error in
-				self.handleDataTaskResponse(using: decoder,
+				self.handleDataTaskResponse(using: endpoint.responseDecoder,
 											data: data,
                                             response: response,
                                             error: error,

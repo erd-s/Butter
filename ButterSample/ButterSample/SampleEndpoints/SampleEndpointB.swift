@@ -25,6 +25,12 @@ struct SampleEndpointB: Endpoint {
     var data: RequestData { .body(body: SampleRequestBodyB()) }
     
     var headers: HTTPHeaders? { ["X-Some-Header": "Some-Header-Argument"] }
+	
+	var responseDecoder: JSONDecoder {
+		let decoder = JSONDecoder()
+		decoder.dateDecodingStrategy = .secondsSince1970
+		return decoder
+	}
 }
 
 struct SampleResponseB: Decodable, CustomStringConvertible {

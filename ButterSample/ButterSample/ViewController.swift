@@ -17,9 +17,7 @@ class ViewController: UIViewController {
 	func makeRequest<T: Decodable>(responseType: T.Type, at endpoint: Endpoint) {
         let router = Router()
         spinner.startAnimating()
-		let decoder = JSONDecoder()
-		decoder.dateDecodingStrategy = .secondsSince1970
-		router.makeRequest(responseType: responseType, endpoint: endpoint, decoder: decoder) { result in
+		router.makeRequest(responseType: responseType, endpoint: endpoint) { result in
             DispatchQueue.main.async {
                 self.spinner.stopAnimating()
                 switch result {
@@ -48,7 +46,7 @@ class ViewController: UIViewController {
         """
         An error occurred.
         
-        Please check that your local server is running, see ButterLocalServer/README.md for instructions.
+        Please check that your local server is running, see README.md for instructions.
         
         \(error.localizedDescription)
         """
