@@ -14,15 +14,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    func makeRequest(at endpoint: Endpoint) {
+	func makeRequest<T: Decodable>(responseType: T.Type, at endpoint: Endpoint) {
         let router = Router()
         spinner.startAnimating()
-        router.makeRequest(endpoint: endpoint) { result in
+		router.makeRequest(responseType: responseType, endpoint: endpoint) { result in
             DispatchQueue.main.async {
                 self.spinner.stopAnimating()
                 switch result {
                 case .success(let data):
-                    self.setOutputTextViewText(jsonData: data)
+					self.setOutputTextViewText(object: data as? CustomStringConvertible)
                 case .failure(let error):
                     self.setOutputTextViewText(error: error)
                 }
@@ -30,30 +30,14 @@ class ViewController: UIViewController {
         }
     }
     
-    func setOutputTextViewText(jsonData: Data?) {
+    func setOutputTextViewText(object: CustomStringConvertible?) {
         outputTextView.textColor = .black
         
-        guard let data = jsonData else {
-            outputTextView.text = "No data"
+        guard let object = object else {
+            self.outputTextView.text = "Successfully retrieved your object. Conform to CustomStringConvertible to print object info."
             return
         }
-        
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-            outputTextView.text = "Data is not json parseable"
-            return
-        }
-    
-        let mappedJson: [String] = json.compactMap { entry in
-            var string = "\(entry.key): "
-            if let arrayValue = entry.value as? NSArray {
-                string.append(arrayValue.description(withLocale: nil, indent: 1))
-            } else {
-                string.append("\(entry.value)")
-            }
-            return string
-        }
-        
-        outputTextView.text = mappedJson.joined(separator: "\n")
+		outputTextView.text = object.description
     }
     
     func setOutputTextViewText(error: Error) {
@@ -62,7 +46,7 @@ class ViewController: UIViewController {
         """
         An error occurred.
         
-        Please check that your local server is running, see ButterLocalServer/README.md for instructions.
+        Please check that your local server is running, see README.md for instructions.
         
         \(error.localizedDescription)
         """
@@ -70,16 +54,21 @@ class ViewController: UIViewController {
     
     @IBAction func makeRequestA(sender: UIButton) {
         let endpoint = SampleEndpointA()
-        makeRequest(at: endpoint)
+		makeRequest(responseType: SampleResponseA.self, at: endpoint)
     }
     
     @IBAction func makeRequestB(sender: UIButton) {
         let endpoint = SampleEndpointB()
-        makeRequest(at: endpoint)
+		makeRequest(responseType: SampleResponseB.self, at: endpoint)
     }
     
     @IBAction func makeRequestC(sender: UIButton) {
         let endpoint = SampleEndpointC()
-        makeRequest(at: endpoint)
+		makeRequest(responseType: SampleResponseC.self, at: endpoint)
+    }
+	
+	@IBAction func makeRequestD(sender: UIButton) {
+        let endpoint = SampleEndpointD()
+		makeRequest(responseType: SampleResponseD.self, at: endpoint)
     }
 }

@@ -4,7 +4,7 @@
 
 import Foundation
 
-public typealias NetworkCompletion = (Result<Data?, Error>) -> ()
+public typealias NetworkCompletion<T: Decodable> = (Result<T, Error>) -> ()
 
 // MARK - Injection Point for URLSession
 public protocol URLSessionDataTaskInterface {
@@ -16,18 +16,21 @@ extension URLSession: URLSessionDataTaskInterface { }
 // MARK - Main Router Interface
 public class Router {
     private var task: URLSessionDataTask?
+    private var session: URLSessionDataTaskInterface
     
-    public init() { }
+    public init(session: URLSessionDataTaskInterface = URLSession.shared) {
+        self.session = session
+    }
     
-    public func makeRequest(sessionInterface: URLSessionDataTaskInterface? = nil,
-                            endpoint: Endpoint,
-                            completion: @escaping NetworkCompletion) {
-        let session = sessionInterface ?? URLSession.shared
+	public func makeRequest<T: Decodable>(responseType: T.Type,
+										  endpoint: Endpoint,
+                                          completion: @escaping NetworkCompletion<T>) {
         do {
             let requestBuilder = URLRequestBuilder()
             let request = try requestBuilder.request(from: endpoint)
             task = session.dataTask(with: request) { data, response, error in
-                self.handleDataTaskResponse(data: data,
+				self.handleDataTaskResponse(using: endpoint.responseDecoder,
+											data: data,
                                             response: response,
                                             error: error,
                                             completion: completion)
@@ -38,10 +41,11 @@ public class Router {
         }
     }
     
-    private func handleDataTaskResponse(data: Data?,
-                                        response: URLResponse?,
-                                        error: Error?,
-                                        completion: NetworkCompletion) {
+	private func handleDataTaskResponse<T: Decodable>(using decoder: JSONDecoder,
+													  data: Data?,
+                                                      response: URLResponse?,
+                                                      error: Error?,
+                                                      completion: NetworkCompletion<T>) {
         if let error = error {
             completion(.failure(error))
             return
@@ -50,8 +54,16 @@ public class Router {
         if let response = response as? HTTPURLResponse,
             let error = NetworkResponseError(statusCode: response.statusCode) {
             completion(.failure(error))
-        } else {
-            completion(.success(data))
+		} else if let data = data {
+			do {
+				let ret = try decoder.decode(T.self, from: data)
+				completion(.success(ret))
+			} catch {
+				completion(.failure(error))
+			}
+		} else {
+			let error = ButterError.unknown(debugInfo: "No error, no data.")
+			completion(.failure(error))
         }
     }
     

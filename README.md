@@ -15,6 +15,10 @@ The sample endpoints point to a local server which can be run by following the i
 
 You can configure the endpoints to point to whatever you'd like, you may need to make changes to how the data is returned in `setOutputTextViewText(jsonData:)`.
 
+# Running Tests for Butter
+
+You can either open the sample and use the Butter scheme to run the tests or open the swift package itself and run them directly from there.
+
 # Starting the server
 
 ## Prerequisites:

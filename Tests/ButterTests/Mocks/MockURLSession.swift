@@ -7,7 +7,8 @@ import Butter
 
 class MockURLSession_Success: URLSessionDataTaskInterface {
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        let data: Data? = Data()
+		let encoder = JSONEncoder()
+		let data: Data? = try! encoder.encode(MockResponse())
         let urlResponse: URLResponse? = nil
         let error: Error? = nil
         

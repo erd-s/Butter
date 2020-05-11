@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B243382246A0018000AAD2F /* SampleEndpointD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B243381246A0018000AAD2F /* SampleEndpointD.swift */; };
 		9B459B7E2461E4EB004AA590 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B7D2461E4EB004AA590 /* AppDelegate.swift */; };
 		9B459B802461E4EB004AA590 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B7F2461E4EB004AA590 /* SceneDelegate.swift */; };
 		9B459B822461E4EB004AA590 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B812461E4EB004AA590 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B243381246A0018000AAD2F /* SampleEndpointD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleEndpointD.swift; sourceTree = "<group>"; };
 		9B459B7A2461E4EB004AA590 /* ButterSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ButterSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B459B7D2461E4EB004AA590 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B459B7F2461E4EB004AA590 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				9B459B962461E9F2004AA590 /* SampleEndpointA.swift */,
 				9B459B982461E9F5004AA590 /* SampleEndpointB.swift */,
 				9B459B9A2461E9F7004AA590 /* SampleEndpointC.swift */,
+				9B243381246A0018000AAD2F /* SampleEndpointD.swift */,
 			);
 			path = SampleEndpoints;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				9B459B972461E9F2004AA590 /* SampleEndpointA.swift in Sources */,
 				9B459B822461E4EB004AA590 /* ViewController.swift in Sources */,
 				9B459B7E2461E4EB004AA590 /* AppDelegate.swift in Sources */,
+				9B243382246A0018000AAD2F /* SampleEndpointD.swift in Sources */,
 				9B459B802461E4EB004AA590 /* SceneDelegate.swift in Sources */,
 				9B459B9B2461E9F7004AA590 /* SampleEndpointC.swift in Sources */,
 				9B459B992461E9F5004AA590 /* SampleEndpointB.swift in Sources */,

@@ -15,4 +15,12 @@ public protocol Endpoint {
     var httpMethod: HTTPMethod { get }
     var data: RequestData { get }
     var headers: HTTPHeaders? { get }
+	var responseDecoder: JSONDecoder { get }
+}
+
+public extension Endpoint {
+	// Default decoder if none is supplied
+	var responseDecoder: JSONDecoder {
+		return JSONDecoder()
+	}
 }
