@@ -35,6 +35,12 @@ def get_time():
 	return {"time": time.time()}
 
 
+# Empty
+@app.get("/empty")
+def get_empty():
+	return {}
+
+
 if __name__ == "__main__":
 	port = int(os.getenv("PORT", 8070))
 	uvicorn.run(app, host='localhost', port=port)

@@ -68,4 +68,9 @@ class ViewController: UIViewController {
         let endpoint = SampleEndpointC()
 		makeRequest(responseType: SampleResponseC.self, at: endpoint)
     }
+	
+	@IBAction func makeRequestD(sender: UIButton) {
+        let endpoint = SampleEndpointD()
+		makeRequest(responseType: SampleResponseD.self, at: endpoint)
+    }
 }
