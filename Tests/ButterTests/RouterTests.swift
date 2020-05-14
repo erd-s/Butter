@@ -5,7 +5,7 @@ final class RouterTests: XCTestCase {
 	func testMakeRequest_success() {
 		// given
 		let session = MockURLSession_Success()
-		let router = Router(session: session)
+		let router = Butter(session: session)
 		let endpoint = MockEndpoint_NoData()
 		
 		// when
@@ -26,7 +26,7 @@ final class RouterTests: XCTestCase {
 	func testMakeRequest_failure_status400() {
 		// given
 		let session = MockURLSession_Failure_400Code()
-		let router = Router(session: session)
+		let router = Butter(session: session)
 		let endpoint = MockEndpoint_NoData()
 		
 		// when
@@ -47,7 +47,7 @@ final class RouterTests: XCTestCase {
 	
 	func testMakeRequest_failure_networkFailure() {
 		let session = MockURLSession_Failure_NetworkError()
-		let router = Router(session: session)
+		let router = Butter(session: session)
 		let endpoint = MockEndpoint_NoData()
 		
 		// when
@@ -67,7 +67,7 @@ final class RouterTests: XCTestCase {
 	
 	func testMakeRequest_failure_invalidEndpoint() {
 		let session = MockURLSession_Success()
-		let router = Router(session: session)
+		let router = Butter(session: session)
 		let endpoint = MockEndpoint_BadHost()
 		
 		// when
@@ -88,7 +88,7 @@ final class RouterTests: XCTestCase {
 	func testTaskCancellation() {
 		// given
 		let session = URLSession.shared
-		let router = Router(session: session)
+		let router = Butter(session: session)
 		let endpoint = MockEndpoint_NoData()
 		
 		// when

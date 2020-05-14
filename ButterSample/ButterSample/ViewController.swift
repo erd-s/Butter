@@ -15,9 +15,8 @@ class ViewController: UIViewController {
 	}
 	
 	func makeRequest<T: Decodable>(responseType: T.Type, at endpoint: Endpoint) {
-		let router = Router()
 		spinner.startAnimating()
-		router.makeRequest(responseType: responseType, endpoint: endpoint) { result in
+		Butter.shared.makeRequest(responseType: responseType, endpoint: endpoint) { result in
 			DispatchQueue.main.async {
 				self.spinner.stopAnimating()
 				switch result {

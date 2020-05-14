@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Butter
+@testable import Butter
 
 class MockURLSession_Success: URLSessionDataTaskInterface {
 	func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
