@@ -12,19 +12,19 @@ struct SampleRequestBodyB: Encodable {
 }
 
 struct SampleEndpointB: Endpoint {
-    var scheme: String { "http" }
-    
-    var host: String { "localhost" }
-    
-    var port: Int? { 8070 }
-    
-    var path: String? { "bungheads/apply/" }
-    
-    var httpMethod: HTTPMethod { .post }
-    
-    var data: RequestData { .body(body: SampleRequestBodyB()) }
-    
-    var headers: HTTPHeaders? { ["X-Some-Header": "Some-Header-Argument"] }
+	var scheme: String { "http" }
+	
+	var host: String { "localhost" }
+	
+	var port: Int? { 8070 }
+	
+	var path: String? { "bungheads/apply/" }
+	
+	var httpMethod: HTTPMethod { .post }
+	
+	var data: RequestData { .body(body: SampleRequestBodyB()) }
+	
+	var headers: HTTPHeaders? { ["X-Some-Header": "Some-Header-Argument"] }
 	
 	var responseDecoder: JSONDecoder {
 		let decoder = JSONDecoder()
