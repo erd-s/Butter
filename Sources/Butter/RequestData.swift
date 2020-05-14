@@ -5,7 +5,7 @@
 import Foundation
 
 public enum RequestData {
-    case none
-    case params(params: [String: String])
-    case body(body: Encodable)
+	case none
+	case params(params: [String: String])
+	case body(body: Encodable)
 }

@@ -6,19 +6,19 @@ import Foundation
 import Butter
 
 struct SampleEndpointC: Endpoint {
-    var scheme: String { "http" }
-    
-    var host: String { "localhost" }
-    
-    var port: Int? { 8070 }
-    
-    var path: String? { "time" }
-    
-    var httpMethod: HTTPMethod { .get }
-    
-    var data: RequestData { .none }
-    
-    var headers: HTTPHeaders? { ["X-Some-Header": "Some-Header-Argument"] }
+	var scheme: String { "http" }
+	
+	var host: String { "localhost" }
+	
+	var port: Int? { 8070 }
+	
+	var path: String? { "time" }
+	
+	var httpMethod: HTTPMethod { .get }
+	
+	var data: RequestData { .none }
+	
+	var headers: HTTPHeaders? { ["X-Some-Header": "Some-Header-Argument"] }
 	
 	var responseDecoder: JSONDecoder {
 		let decoder = JSONDecoder()
