@@ -53,22 +53,22 @@ class ViewController: UIViewController {
 	}
 	
 	@IBAction func makeRequestA(sender: UIButton) {
-		let endpoint = SampleEndpointA()
-		makeRequest(responseType: SampleResponseA.self, at: endpoint)
+		let endpoint = GetMoviesRequest()
+		makeRequest(responseType: GetMoviesResponse.self, at: endpoint)
 	}
 	
 	@IBAction func makeRequestB(sender: UIButton) {
-		let endpoint = SampleEndpointB()
-		makeRequest(responseType: SampleResponseB.self, at: endpoint)
+		let endpoint = BungheadsApplyRequest()
+		makeRequest(responseType: BungheadResponse.self, at: endpoint)
 	}
 	
 	@IBAction func makeRequestC(sender: UIButton) {
-		let endpoint = SampleEndpointC()
-		makeRequest(responseType: SampleResponseC.self, at: endpoint)
+		let endpoint = GetTimeRequest()
+		makeRequest(responseType: GetTimeResponse.self, at: endpoint)
 	}
 	
 	@IBAction func makeRequestD(sender: UIButton) {
-		let endpoint = SampleEndpointD()
-		makeRequest(responseType: SampleResponseD.self, at: endpoint)
+		let endpoint = EmptyResponseRequest()
+		makeRequest(responseType: EmptyResponse.self, at: endpoint)
 	}
 }

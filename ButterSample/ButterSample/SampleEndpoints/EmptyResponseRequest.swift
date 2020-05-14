@@ -5,7 +5,7 @@
 import Foundation
 import Butter
 
-struct SampleEndpointD: Endpoint {
+struct EmptyResponseRequest: Endpoint {
 	var scheme: String { "http" }
 	
 	var host: String { "localhost" }
@@ -21,7 +21,7 @@ struct SampleEndpointD: Endpoint {
 	var headers: HTTPHeaders? { nil }
 }
 
-struct SampleResponseD: Decodable, CustomStringConvertible {
+struct EmptyResponse: Decodable, CustomStringConvertible {
 	var description: String {
 		return "success"
 	}

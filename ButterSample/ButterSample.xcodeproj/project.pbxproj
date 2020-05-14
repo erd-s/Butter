@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B243382246A0018000AAD2F /* SampleEndpointD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B243381246A0018000AAD2F /* SampleEndpointD.swift */; };
 		9B459B7E2461E4EB004AA590 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B7D2461E4EB004AA590 /* AppDelegate.swift */; };
 		9B459B802461E4EB004AA590 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B7F2461E4EB004AA590 /* SceneDelegate.swift */; };
 		9B459B822461E4EB004AA590 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B812461E4EB004AA590 /* ViewController.swift */; };
@@ -15,13 +14,13 @@
 		9B459B872461E4EB004AA590 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B459B862461E4EB004AA590 /* Assets.xcassets */; };
 		9B459B8A2461E4EB004AA590 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B459B882461E4EB004AA590 /* LaunchScreen.storyboard */; };
 		9B459B952461E8AF004AA590 /* Butter in Frameworks */ = {isa = PBXBuildFile; productRef = 9B459B942461E8AF004AA590 /* Butter */; };
-		9B459B972461E9F2004AA590 /* SampleEndpointA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B962461E9F2004AA590 /* SampleEndpointA.swift */; };
-		9B459B992461E9F5004AA590 /* SampleEndpointB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B982461E9F5004AA590 /* SampleEndpointB.swift */; };
-		9B459B9B2461E9F7004AA590 /* SampleEndpointC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B9A2461E9F7004AA590 /* SampleEndpointC.swift */; };
+		9BA27142246DEBC100932163 /* GetMoviesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA27141246DEBC100932163 /* GetMoviesRequest.swift */; };
+		9BA27144246DEBEF00932163 /* BungheadsApplyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA27143246DEBEF00932163 /* BungheadsApplyRequest.swift */; };
+		9BA27146246DEC4600932163 /* GetTimeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA27145246DEC4600932163 /* GetTimeRequest.swift */; };
+		9BA27148246DEC8700932163 /* EmptyResponseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA27147246DEC8700932163 /* EmptyResponseRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9B243381246A0018000AAD2F /* SampleEndpointD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleEndpointD.swift; sourceTree = "<group>"; };
 		9B459B7A2461E4EB004AA590 /* ButterSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ButterSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B459B7D2461E4EB004AA590 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B459B7F2461E4EB004AA590 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,9 +30,10 @@
 		9B459B892461E4EB004AA590 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B459B8B2461E4EB004AA590 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B459B912461E559004AA590 /* Butter */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Butter; path = ..; sourceTree = "<group>"; };
-		9B459B962461E9F2004AA590 /* SampleEndpointA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleEndpointA.swift; sourceTree = "<group>"; };
-		9B459B982461E9F5004AA590 /* SampleEndpointB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleEndpointB.swift; sourceTree = "<group>"; };
-		9B459B9A2461E9F7004AA590 /* SampleEndpointC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleEndpointC.swift; sourceTree = "<group>"; };
+		9BA27141246DEBC100932163 /* GetMoviesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMoviesRequest.swift; sourceTree = "<group>"; };
+		9BA27143246DEBEF00932163 /* BungheadsApplyRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BungheadsApplyRequest.swift; sourceTree = "<group>"; };
+		9BA27145246DEC4600932163 /* GetTimeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTimeRequest.swift; sourceTree = "<group>"; };
+		9BA27147246DEC8700932163 /* EmptyResponseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyResponseRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,10 +84,10 @@
 		9B459B922461E5AE004AA590 /* SampleEndpoints */ = {
 			isa = PBXGroup;
 			children = (
-				9B459B962461E9F2004AA590 /* SampleEndpointA.swift */,
-				9B459B982461E9F5004AA590 /* SampleEndpointB.swift */,
-				9B459B9A2461E9F7004AA590 /* SampleEndpointC.swift */,
-				9B243381246A0018000AAD2F /* SampleEndpointD.swift */,
+				9BA27143246DEBEF00932163 /* BungheadsApplyRequest.swift */,
+				9BA27147246DEC8700932163 /* EmptyResponseRequest.swift */,
+				9BA27141246DEBC100932163 /* GetMoviesRequest.swift */,
+				9BA27145246DEC4600932163 /* GetTimeRequest.swift */,
 			);
 			path = SampleEndpoints;
 			sourceTree = "<group>";
@@ -173,13 +173,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B459B972461E9F2004AA590 /* SampleEndpointA.swift in Sources */,
 				9B459B822461E4EB004AA590 /* ViewController.swift in Sources */,
 				9B459B7E2461E4EB004AA590 /* AppDelegate.swift in Sources */,
-				9B243382246A0018000AAD2F /* SampleEndpointD.swift in Sources */,
+				9BA27148246DEC8700932163 /* EmptyResponseRequest.swift in Sources */,
+				9BA27142246DEBC100932163 /* GetMoviesRequest.swift in Sources */,
 				9B459B802461E4EB004AA590 /* SceneDelegate.swift in Sources */,
-				9B459B9B2461E9F7004AA590 /* SampleEndpointC.swift in Sources */,
-				9B459B992461E9F5004AA590 /* SampleEndpointB.swift in Sources */,
+				9BA27144246DEBEF00932163 /* BungheadsApplyRequest.swift in Sources */,
+				9BA27146246DEC4600932163 /* GetTimeRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

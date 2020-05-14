@@ -5,7 +5,7 @@
 import Foundation
 import Butter
 
-struct SampleEndpointA: Endpoint {
+struct GetMoviesRequest: Endpoint {
 	var scheme: String { "http" }
 	
 	var host: String { "localhost" }
@@ -21,7 +21,7 @@ struct SampleEndpointA: Endpoint {
 	var headers: HTTPHeaders? { ["ContentType": "application/json"] }
 }
 
-struct SampleResponseA: Decodable, CustomStringConvertible {
+struct GetMoviesResponse: Decodable, CustomStringConvertible {
 	let movieList: [String]
 	
 	var description: String {

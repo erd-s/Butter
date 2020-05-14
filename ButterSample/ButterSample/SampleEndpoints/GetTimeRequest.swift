@@ -5,7 +5,7 @@
 import Foundation
 import Butter
 
-struct SampleEndpointC: Endpoint {
+struct GetTimeRequest: Endpoint {
 	var scheme: String { "http" }
 	
 	var host: String { "localhost" }
@@ -27,7 +27,7 @@ struct SampleEndpointC: Endpoint {
 	}
 }
 
-struct SampleResponseC: Decodable, CustomStringConvertible {
+struct GetTimeResponse: Decodable, CustomStringConvertible {
 	let time: Date
 	
 	var description: String {
