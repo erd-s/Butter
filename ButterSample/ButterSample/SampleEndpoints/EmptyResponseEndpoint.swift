@@ -5,7 +5,7 @@
 import Foundation
 import Butter
 
-struct EmptyResponseRequest: Endpoint {
+struct EmptyResponseEndpoint: Endpoint {
 	var scheme: String { "http" }
 	
 	var host: String { "localhost" }

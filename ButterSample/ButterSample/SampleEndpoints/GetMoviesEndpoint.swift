@@ -5,7 +5,7 @@
 import Foundation
 import Butter
 
-struct GetMoviesRequest: Endpoint {
+struct GetMoviesEndpoint: Endpoint {
 	var scheme: String { "http" }
 	
 	var host: String { "localhost" }

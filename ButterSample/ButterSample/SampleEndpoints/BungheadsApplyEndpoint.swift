@@ -11,7 +11,7 @@ struct JasonDeruloBunghead: Encodable {
 	let occupation = "unknown"
 }
 
-struct BungheadsApplyRequest: Endpoint {
+struct BungheadsApplyEndpoint: Endpoint {
 	var scheme: String { "http" }
 	
 	var host: String { "localhost" }

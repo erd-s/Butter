@@ -5,7 +5,7 @@
 import Foundation
 import Butter
 
-struct GetTimeRequest: Endpoint {
+struct GetTimeEndpoint: Endpoint {
 	var scheme: String { "http" }
 	
 	var host: String { "localhost" }
