@@ -15,9 +15,8 @@ class ViewController: UIViewController {
 	}
 	
 	func makeRequest<T: Decodable>(responseType: T.Type, at endpoint: Endpoint) {
-		let router = Router()
 		spinner.startAnimating()
-		router.makeRequest(responseType: responseType, endpoint: endpoint) { result in
+		Butter().makeRequest(responseType: responseType, endpoint: endpoint) { result in
 			DispatchQueue.main.async {
 				self.spinner.stopAnimating()
 				switch result {
@@ -53,22 +52,22 @@ class ViewController: UIViewController {
 	}
 	
 	@IBAction func makeRequestA(sender: UIButton) {
-		let endpoint = SampleEndpointA()
-		makeRequest(responseType: SampleResponseA.self, at: endpoint)
+		let endpoint = GetMoviesEndpoint()
+		makeRequest(responseType: GetMoviesResponse.self, at: endpoint)
 	}
 	
 	@IBAction func makeRequestB(sender: UIButton) {
-		let endpoint = SampleEndpointB()
-		makeRequest(responseType: SampleResponseB.self, at: endpoint)
+		let endpoint = BungheadsApplyEndpoint()
+		makeRequest(responseType: BungheadResponse.self, at: endpoint)
 	}
 	
 	@IBAction func makeRequestC(sender: UIButton) {
-		let endpoint = SampleEndpointC()
-		makeRequest(responseType: SampleResponseC.self, at: endpoint)
+		let endpoint = GetTimeEndpoint()
+		makeRequest(responseType: GetTimeResponse.self, at: endpoint)
 	}
 	
 	@IBAction func makeRequestD(sender: UIButton) {
-		let endpoint = SampleEndpointD()
-		makeRequest(responseType: SampleResponseD.self, at: endpoint)
+		let endpoint = EmptyResponseEndpoint()
+		makeRequest(responseType: EmptyResponse.self, at: endpoint)
 	}
 }

@@ -5,13 +5,13 @@
 import Foundation
 import Butter
 
-struct SampleRequestBodyB: Encodable {
+struct JasonDeruloBunghead: Encodable {
 	let first = "jason"
 	let last = "derulo"
 	let occupation = "unknown"
 }
 
-struct SampleEndpointB: Endpoint {
+struct BungheadsApplyEndpoint: Endpoint {
 	var scheme: String { "http" }
 	
 	var host: String { "localhost" }
@@ -22,7 +22,7 @@ struct SampleEndpointB: Endpoint {
 	
 	var httpMethod: HTTPMethod { .post }
 	
-	var data: RequestData { .body(body: SampleRequestBodyB()) }
+	var data: RequestData { .body(body: JasonDeruloBunghead()) }
 	
 	var headers: HTTPHeaders? { ["X-Some-Header": "Some-Header-Argument"] }
 	
@@ -33,7 +33,7 @@ struct SampleEndpointB: Endpoint {
 	}
 }
 
-struct SampleResponseB: Decodable, CustomStringConvertible {
+struct BungheadResponse: Decodable, CustomStringConvertible {
 	let identifier: String
 	let created_at: Date
 	

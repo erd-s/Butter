@@ -2,16 +2,34 @@ import XCTest
 @testable import Butter
 
 final class RouterTests: XCTestCase {
+	
+	override func setUp() {
+		super.setUp()
+		unregisterURLProtocols()
+	}
+	
+	override func tearDown() {
+		unregisterURLProtocols()
+		super.tearDown()
+	}
+	
+	func unregisterURLProtocols() {
+		URLProtocol.unregisterClass(MockURLProtocol_Success.self)
+		URLProtocol.unregisterClass(MockURLProtocol_Hung.self)
+		URLProtocol.unregisterClass(MockURLProtocol_Failure_400Code.self)
+		URLProtocol.unregisterClass(MockURLProtocol_Failure_NetworkError.self)
+	}
+	
 	func testMakeRequest_success() {
 		// given
-		let session = MockURLSession_Success()
-		let router = Router(session: session)
+		URLProtocol.registerClass(MockURLProtocol_Success.self)
 		let endpoint = MockEndpoint_NoData()
+		let butter = Butter()
 		
 		// when
 		var data: MockResponse?
 		let expectation = XCTestExpectation(description: "successful completion")
-		router.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
+		butter.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
 			if case .success(let resultData) = result {
 				data = resultData
 			}
@@ -25,15 +43,15 @@ final class RouterTests: XCTestCase {
 	
 	func testMakeRequest_failure_status400() {
 		// given
-		let session = MockURLSession_Failure_400Code()
-		let router = Router(session: session)
+		URLProtocol.registerClass(MockURLProtocol_Failure_400Code.self)
 		let endpoint = MockEndpoint_NoData()
+		let butter = Butter()
 		
 		// when
 		var requestError: Error?
 		let expectation = XCTestExpectation(description: "completion with error")
 		
-		router.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
+		butter.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
 			if case .failure(let error) = result {
 				requestError = error
 			}
@@ -46,14 +64,14 @@ final class RouterTests: XCTestCase {
 	}
 	
 	func testMakeRequest_failure_networkFailure() {
-		let session = MockURLSession_Failure_NetworkError()
-		let router = Router(session: session)
+		URLProtocol.registerClass( MockURLProtocol_Failure_NetworkError.self)
 		let endpoint = MockEndpoint_NoData()
+		let butter = Butter()
 		
 		// when
 		var requestError: Error?
 		let expectation = XCTestExpectation(description: "completion with error")
-		router.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
+		butter.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
 			if case .failure(let error) = result {
 				requestError = error
 			}
@@ -66,14 +84,15 @@ final class RouterTests: XCTestCase {
 	}
 	
 	func testMakeRequest_failure_invalidEndpoint() {
-		let session = MockURLSession_Success()
-		let router = Router(session: session)
+		// given
+		URLProtocol.registerClass(MockURLProtocol_Success.self)
 		let endpoint = MockEndpoint_BadHost()
+		let butter = Butter()
 		
 		// when
 		var requestError: Error?
 		let expectation = XCTestExpectation(description: "completion with error")
-		router.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
+		butter.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
 			if case .failure(let error) = result {
 				requestError = error
 			}
@@ -87,14 +106,14 @@ final class RouterTests: XCTestCase {
 	
 	func testTaskCancellation() {
 		// given
-		let session = URLSession.shared
-		let router = Router(session: session)
+		URLProtocol.registerClass(MockURLProtocol_Success.self)
 		let endpoint = MockEndpoint_NoData()
+		let butter = Butter()
 		
 		// when
 		var errorCode: Int?
 		let exp = XCTestExpectation(description: "finish with cancelation")
-		router.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
+		butter.makeRequest(responseType: MockResponse.self, endpoint: endpoint) { result in
 			if case .failure(let error as NSError) = result {
 				errorCode = error.code
 			}
@@ -102,7 +121,7 @@ final class RouterTests: XCTestCase {
 		}
 		
 		// then
-		router.cancel()
+		butter.cancel()
 		wait(for: [exp], timeout: 0.5)
 		XCTAssertEqual(errorCode, -999)
 	}

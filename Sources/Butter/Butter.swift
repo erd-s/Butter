@@ -6,21 +6,11 @@ import Foundation
 
 public typealias NetworkCompletion<T: Decodable> = (Result<T, Error>) -> ()
 
-// MARK - Injection Point for URLSession
-public protocol URLSessionDataTaskInterface {
-	func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
-}
-
-extension URLSession: URLSessionDataTaskInterface { }
-
-// MARK - Main Router Interface
-public class Router {
+// MARK - Main Interface
+public class Butter {
 	private var task: URLSessionDataTask?
-	private var session: URLSessionDataTaskInterface
 	
-	public init(session: URLSessionDataTaskInterface = URLSession.shared) {
-		self.session = session
-	}
+	public init() { }
 	
 	public func makeRequest<T: Decodable>(responseType: T.Type,
 										  endpoint: Endpoint,
@@ -28,7 +18,7 @@ public class Router {
 		do {
 			let requestBuilder = URLRequestBuilder()
 			let request = try requestBuilder.request(from: endpoint)
-			task = session.dataTask(with: request) { data, response, error in
+			task = URLSession.shared.dataTask(with: request) { data, response, error in
 				self.handleDataTaskResponse(using: endpoint.responseDecoder,
 											data: data,
 											response: response,
