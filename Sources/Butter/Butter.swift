@@ -12,6 +12,26 @@ public class Butter {
 	
 	public init() { }
 	
+	public func makeImageRequest(endpoint: Endpoint, completion: @escaping (Result<Data, Error>) -> ()) {
+		do {
+			let requestBuilder = URLRequestBuilder()
+			let request = try requestBuilder.request(from: endpoint)
+			task = URLSession.shared.dataTask(with: request) { data, response, error in
+				if let data = data {
+					completion(.success(data))
+				} else if let error = error {
+					completion(.failure(error))
+				} else {
+					let error = ButterError.unknown(debugInfo: "No error, no data.")
+					completion(.failure(error))
+				}
+			}
+			task?.resume()
+		} catch {
+			completion(.failure(error))
+		}
+	}
+	
 	public func makeRequest<T: Decodable>(responseType: T.Type,
 										  endpoint: Endpoint,
 										  completion: @escaping NetworkCompletion<T>) {

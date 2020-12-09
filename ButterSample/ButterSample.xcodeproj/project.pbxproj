@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C21B05025807F660013104A /* ImageEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C21B04F25807F660013104A /* ImageEndpoint.swift */; };
 		9B459B7E2461E4EB004AA590 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B7D2461E4EB004AA590 /* AppDelegate.swift */; };
 		9B459B802461E4EB004AA590 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B7F2461E4EB004AA590 /* SceneDelegate.swift */; };
 		9B459B822461E4EB004AA590 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B459B812461E4EB004AA590 /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C21B04F25807F660013104A /* ImageEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEndpoint.swift; sourceTree = "<group>"; };
 		9B459B7A2461E4EB004AA590 /* ButterSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ButterSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B459B7D2461E4EB004AA590 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B459B7F2461E4EB004AA590 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				9BFAC31F247368A1004BD6AA /* BungheadsApplyEndpoint.swift */,
 				9BFAC322247368A1004BD6AA /* EmptyResponseEndpoint.swift */,
 				9BFAC320247368A1004BD6AA /* GetMoviesEndpoint.swift */,
+				0C21B04F25807F660013104A /* ImageEndpoint.swift */,
 				9BFAC321247368A1004BD6AA /* GetTimeEndpoint.swift */,
 			);
 			path = SampleEndpoints;
@@ -129,7 +132,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Christopher Erdos";
 				TargetAttributes = {
 					9B459B792461E4EB004AA590 = {
@@ -175,6 +178,7 @@
 			files = (
 				9BFAC325247368A1004BD6AA /* GetTimeEndpoint.swift in Sources */,
 				9BFAC324247368A1004BD6AA /* GetMoviesEndpoint.swift in Sources */,
+				0C21B05025807F660013104A /* ImageEndpoint.swift in Sources */,
 				9B459B822461E4EB004AA590 /* ViewController.swift in Sources */,
 				9BFAC326247368A1004BD6AA /* EmptyResponseEndpoint.swift in Sources */,
 				9B459B7E2461E4EB004AA590 /* AppDelegate.swift in Sources */,
@@ -231,6 +235,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -291,6 +296,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

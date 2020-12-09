@@ -5,6 +5,6 @@
 import Foundation
 
 struct MockResponse: Codable {
-	let some_value = "some value"
-	let another_value = ["frightened", "by", "ghosts"]
+	var some_value = "some value"
+	var another_value = ["frightened", "by", "ghosts"]
 }
