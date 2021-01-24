@@ -19,6 +19,19 @@ final class URLBuilderTests: XCTestCase {
 		// then
 		XCTAssertNil(requestError)
 	}
+    
+    func testCachePolicySet() {
+        // given
+        let builder = URLRequestBuilder()
+        let endpoint = MockEndpoint_NoData()
+        
+        // when
+        let cachePolicy: URLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        let request = try! builder.request(from: endpoint, cachePolicy: cachePolicy)
+        
+        // then
+        XCTAssertEqual(request.cachePolicy, cachePolicy)
+    }
 	
 	func testMakeRequest_failure_badURL() {
 		// given

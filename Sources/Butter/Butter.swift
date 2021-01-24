@@ -12,10 +12,12 @@ public class Butter {
 	
 	public init() { }
 	
-	public func makeImageRequest(endpoint: Endpoint, completion: @escaping (Result<Data, Error>) -> ()) {
+    public func makeImageRequest(endpoint: Endpoint,
+                                 cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy,
+                                 completion: @escaping (Result<Data, Error>) -> ()) {
 		do {
 			let requestBuilder = URLRequestBuilder()
-			let request = try requestBuilder.request(from: endpoint)
+			let request = try requestBuilder.request(from: endpoint, cachePolicy: cachePolicy)
 			task = URLSession.shared.dataTask(with: request) { data, response, error in
 				if let data = data {
 					completion(.success(data))
@@ -34,10 +36,12 @@ public class Butter {
 	
 	public func makeRequest<T: Decodable>(responseType: T.Type,
 										  endpoint: Endpoint,
+                                          cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy,
 										  completion: @escaping NetworkCompletion<T>) {
+        
 		do {
 			let requestBuilder = URLRequestBuilder()
-			let request = try requestBuilder.request(from: endpoint)
+            let request = try requestBuilder.request(from: endpoint, cachePolicy: cachePolicy)
 			task = URLSession.shared.dataTask(with: request) { data, response, error in
 				self.handleDataTaskResponse(using: endpoint.responseDecoder,
 											data: data,

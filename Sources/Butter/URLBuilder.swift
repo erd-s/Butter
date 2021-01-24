@@ -12,14 +12,14 @@ private extension Encodable {
 }
 
 public struct URLRequestBuilder {
-	public func request(from endpoint: Endpoint) throws -> URLRequest {
+    public func request(from endpoint: Endpoint, cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy) throws -> URLRequest {
 		let url = try makeURL(scheme: endpoint.scheme,
 							  host: endpoint.host,
 							  port: endpoint.port,
 							  path: endpoint.path)
 		var request = URLRequest(url: url)
 		request.httpMethod = endpoint.httpMethod.rawValue
-		
+        request.cachePolicy = cachePolicy
 		try setData(request: &request, data: endpoint.data)
 		if let headers = endpoint.headers {
 			setHeaders(&request, headers: headers)
